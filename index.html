@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luyện nghe bài 26 – Minna no Nihongo</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1f2328;--mut:#6b7280;--card:#fff;--bd:#e5e7eb;--ac:#c2410c;--hl:#ffedd5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181d;--fg:#e8e8e8;--mut:#9ca3af;--card:#1f2229;--bd:#323640;--ac:#fb923c;--hl:#3b2a1a}}
+:root[data-theme="dark"]{--bg:#16181d;--fg:#e8e8e8;--mut:#9ca3af;--card:#1f2229;--bd:#323640;--ac:#fb923c;--hl:#3b2a1a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:12px 14px 40px}
+h1{font-size:18px;margin:6px 0 10px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5;border-bottom:1px solid var(--bd)}
+select,button{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
+select{width:100%;margin-bottom:8px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button.p{background:var(--ac);border-color:var(--ac);color:#fff}
+label{font-size:14px;color:var(--mut)}
+input[type=range]{flex:1;min-width:100px}
+#msg{font-size:13px;color:var(--mut);margin:6px 0 0}
+ol{list-style:none;margin:12px 0;padding:0}
+li{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+li.on{background:var(--hl);border-color:var(--ac)}
+li .n{color:var(--mut);min-width:26px;text-align:right;font-size:14px}
+li .t{flex:1;font-size:19px;line-height:2}
+rt{font-size:.5em}
+li .ic{color:var(--ac)}
+</style></head><body><div class="wrap">
+<h1>🔊 Luyện nghe bài 26 (Minna no Nihongo)</h1>
+<div class="bar">
+<select id="sel"></select>
+<div class="row"><button class="p" id="all">▶ Đọc cả bài</button><button id="stop">■ Dừng</button>
+<label>Tốc độ <input type="range" id="rate" min="0.5" max="1.2" step="0.1" value="0.8"> <span id="rv">0.8</span></label></div>
+<div class="row" style="margin-top:6px"><label><input type="checkbox" id="fu" checked> Hiện furigana</label>
+<label>Nghỉ giữa câu <select id="gap" style="width:auto;margin:0"><option value="500">0,5 giây</option><option value="1500" selected>1,5 giây</option><option value="3000">3 giây</option></select></label></div>
+<div id="msg"></div></div>
+<ol id="list"></ol></div>
+<script>
+const D=[{"h": "A. どうして / 〜んですか (hỏi lý do, giải thích)", "q": ["どうして{今日|きょう}、{学校|がっこう}に{遅|おく}れたんですか。", "どうして{昨日|きのう}、{会社|かいしゃ}を{休|やす}んだんですか。", "どうして{日本語|にほんご}を{勉強|べんきょう}しているんですか。", "どうして{傘|かさ}を{持|も}っているんですか。", "どうして{元気|げんき}がないんですか。", "どうして{毎日|まいにち}、{電車|でんしゃ}で{行|い}くんですか。", "{今|いま}、{何|なに}を{探|さが}しているんですか。", "{来月|らいげつ}、どこへ{行|い}くんですか。", "{今度|こんど}の{休|やす}みに{何|なに}をするんですか。", "{日曜日|にちようび}にいつもどこで{何|なに}をしているんですか。"]}, {"h": "B. 〜んですが、どうしたらいいですか (xin lời khuyên)", "q": ["{気分|きぶん}が{悪|わる}いんですが、どうしたらいいですか。", "{日本語|にほんご}がわからないんですが、どうしたらいいですか。", "{財布|さいふ}を{拾|ひろ}ったんですが、どこに{持|も}って{行|い}ったらいいですか。", "パスポートをなくしたんですが、どこに{連絡|れんらく}したらいいですか。", "{日本|にほん}の{電話番号|でんわばんごう}がわからないんですが、どうしたらいいですか。", "{毎朝|まいあさ}、{何時|なんじ}の{電車|でんしゃ}に{乗|の}ったら、{会社|かいしゃ}に{間|ま}に{合|あ}いますか。", "{友達|ともだち}が{約束|やくそく}の{時間|じかん}に{遅|おく}れたら、どうしますか。"]}, {"h": "C. 〜ていただけませんか (nhờ vả lịch sự)", "q": ["{日本語|にほんご}がわからないとき、{誰|だれ}に{教|おし}えていただきますか。", "{荷物|にもつ}が{重|おも}いとき、{誰|だれ}に{手伝|てつだ}っていただきますか。", "{宿題|しゅくだい}がわからないとき、{誰|だれ}に{見|み}ていただきますか。", "{会議|かいぎ}に{間|ま}に{合|あ}わないとき、{誰|だれ}に{連絡|れんらく}しますか。", "{友達|ともだち}に{連絡|れんらく}しましたか。"]}, {"h": "D. N があります (sự kiện, địa điểm) / ごみ・ボランティア", "q": ["{今度|こんど}の{日曜日|にちようび}、どこで{運動会|うんどうかい}がありますか。", "{盆踊|ぼんおど}りを{見|み}たことがありますか。", "フリーマーケットで{何|なに}を{買|か}いましたか。", "{学校|がっこう}の{近|ちか}くにフリーマーケットがありますか。", "{日本|にほん}で{燃|も}えるごみは{何曜日|なんようび}に{出|だ}しますか。", "{燃|も}えないごみは{何曜日|なんようび}に{出|だ}しますか。", "{大|おお}きいごみはどこに{出|だ}しますか。", "{家|いえ}のごみは{誰|だれ}が{出|だ}しますか。", "ボランティアをしたことがありますか。", "{休|やす}みの{日|ひ}、ボランティアで{何|なに}をしたいですか。"]}, {"h": "E. いつでも / どこでも / 何でも / 誰でも、こんな・そんな・あんな", "q": ["{何|なん}でも{食|た}べますか。", "いつでも{電話|でんわ}してもいいですか。", "どこでも{写真|しゃしん}を{撮|と}ってもいいですか。", "{誰|だれ}でも{日本|にほん}の{電車|でんしゃ}に{乗|の}れますか。", "あんな{大|おお}きい{家|いえ}に{住|す}みたいですか。", "こんな{財布|さいふ}がほしいですか。", "{平日|へいじつ}は{何時|なんじ}に{起|お}きますか。", "{国会議事堂|こっかいぎじどう}を{見|み}たことがありますか。"]}];
+const $=id=>document.getElementById(id);
+let cur=0,tok=0,voice=null;
+const plain=s=>s.replace(/\{([^|}]+)\|[^}]+\}/g,'$1');
+const rub=s=>s.replace(/\{([^|}]+)\|([^}]+)\}/g,'<ruby>$1<rt>$2</rt></ruby>');
+function pick(){try{const v=speechSynthesis.getVoices().filter(x=>/^ja/i.test(x.lang));voice=v[0]||null;$('msg').textContent=voice?'Giọng đọc: '+voice.name:'Máy chưa có giọng tiếng Nhật. Hãy cài giọng Japanese trong cài đặt thiết bị (Text-to-speech).'}catch(e){$('msg').textContent='Trình duyệt này không hỗ trợ đọc giọng nói.'}}
+try{speechSynthesis.onvoiceschanged=pick}catch(e){}
+function say(text,done){const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';if(voice)u.voice=voice;u.rate=+$('rate').value;u.onend=done;u.onerror=done;speechSynthesis.speak(u)}
+function mark(i){document.querySelectorAll('li').forEach((e,k)=>e.classList.toggle('on',k===i))}
+function stop(){tok++;try{speechSynthesis.cancel()}catch(e){}mark(-1)}
+function one(i){stop();const t=tok;mark(i);say(plain(D[cur].q[i]),()=>{if(t===tok)mark(-1)})}
+function all(){stop();const t=++tok;let i=0;(function nx(){if(t!==tok||i>=D[cur].q.length){if(t===tok)mark(-1);return}
+const k=i++;mark(k);document.querySelectorAll('li')[k].scrollIntoView({block:'center',behavior:'smooth'});
+say(plain(D[cur].q[k]),()=>setTimeout(nx,+$('gap').value))})()}
+function render(){stop();$('list').innerHTML=D[cur].q.map((q,i)=>'<li data-i="'+i+'"><span class="n">'+(i+1)+'.</span><span class="t">'+($('fu').checked?rub(q):plain(q))+'</span><span class="ic">🔊</span></li>').join('')}
+$('sel').innerHTML=D.map((l,i)=>'<option value="'+i+'">'+l.h+'</option>').join('');
+$('sel').onchange=e=>{cur=+e.target.value;render();scrollTo(0,0)};
+$('list').onclick=e=>{const li=e.target.closest('li');if(li)one(+li.dataset.i)};
+$('all').onclick=all;$('stop').onclick=stop;$('fu').onchange=render;
+$('rate').oninput=e=>{$('rv').textContent=e.target.value};
+render();pick();
+</script></body></html>
